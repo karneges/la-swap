@@ -23,7 +23,9 @@ export function wrappedCurrencyAmount(
 
 export function unwrappedToken(currency: Currency): Currency {
   if (currency.isEther) return currency
+  //@ts-ignore
   const formattedChainId = supportedChainId(currency.chainId)
+  //@ts-ignore
   if (formattedChainId && currency.equals(WETH9[formattedChainId])) return ETHER
   return currency
 }

@@ -285,6 +285,7 @@ export default function WalletModal({
 
   function getModalContent() {
     if (error) {
+      debugger
       return (
         <UpperSection>
           <CloseIcon onClick={toggleWalletModal}>

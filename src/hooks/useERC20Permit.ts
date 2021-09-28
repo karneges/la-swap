@@ -49,6 +49,9 @@ const PERMITTABLE_TOKENS: {
   [ChainId.GÖRLI]: {
     [UNI[ChainId.GÖRLI].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },
   },
+  [ChainId.LA]: {
+    [UNI[ChainId.LA].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },
+  },
   [ChainId.KOVAN]: {
     [UNI[ChainId.KOVAN].address]: { type: PermitType.AMOUNT, name: 'Uniswap' },
   },
