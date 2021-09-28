@@ -1,7 +1,7 @@
 import { ChainId, Currency, CurrencyAmount, currencyEquals, Price, Token, WETH9 } from '@uniswap/sdk-core'
 import JSBI from 'jsbi'
 import { useMemo } from 'react'
-import { USDC } from '../constants'
+import { USDC, WETH_ONLY } from '../constants'
 import { PairState, useV2Pairs } from './useV2Pairs'
 import { useActiveWeb3React } from '../hooks'
 import { wrappedCurrency } from '../utils/wrappedCurrency'
@@ -13,7 +13,8 @@ import { wrappedCurrency } from '../utils/wrappedCurrency'
 export default function useUSDCPrice(currency?: Currency): Price<Currency, Token> | undefined {
   const { chainId } = useActiveWeb3React()
   const wrapped = wrappedCurrency(currency, chainId)
-  const weth = WETH9[chainId as ChainId]
+  const weth = WETH_ONLY[chainId][0]
+  debugger
 
   const tokenPairs: [Currency | undefined, Currency | undefined][] = useMemo(
     () => [

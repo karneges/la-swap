@@ -11,7 +11,6 @@ import {
 } from '@uniswap/sdk-core'
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
-  debugger
   return chainId && currency ? wrappedCurrencyInternal(currency, chainId) : undefined
 }
 

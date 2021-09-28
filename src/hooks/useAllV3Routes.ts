@@ -18,7 +18,6 @@ function computeAllRoutes(
 ): Route<Currency, Currency>[] {
   const tokenIn = wrappedCurrency(currencyIn, chainId)
   const tokenOut = wrappedCurrency(currencyOut, chainId)
-  debugger
   if (!tokenIn || !tokenOut) throw new Error('Missing tokenIn/tokenOut')
 
   for (const pool of pools) {
