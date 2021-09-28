@@ -55,6 +55,7 @@ export default async function getTokenList(
     }
 
     const json = await response.json()
+    //TODO remove
     if (!tokenListValidator(json)) {
       const validationErrors: string =
         tokenListValidator.errors?.reduce<string>((memo, error) => {
