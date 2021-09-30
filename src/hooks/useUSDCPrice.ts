@@ -14,7 +14,6 @@ export default function useUSDCPrice(currency?: Currency): Price<Currency, Token
   const { chainId } = useActiveWeb3React()
   const wrapped = wrappedCurrency(currency, chainId)
   const weth = WETH_ONLY[chainId][0]
-  debugger
 
   const tokenPairs: [Currency | undefined, Currency | undefined][] = useMemo(
     () => [

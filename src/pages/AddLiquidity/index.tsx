@@ -4,7 +4,7 @@ import { Currency, CurrencyAmount, currencyEquals, Percent } from '@uniswap/sdk-
 import { WETH9 } from '@uniswap/sdk-core'
 import { AlertTriangle, AlertCircle } from 'react-feather'
 import ReactGA from 'react-ga'
-import { ZERO_PERCENT } from '../../constants'
+import { getWeth9, ZERO_PERCENT } from '../../constants'
 import { useV3NFTPositionManagerContract } from '../../hooks/useContract'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
@@ -288,10 +288,10 @@ export default function AddLiquidity({
       } else {
         // prevent weth + eth
         const isETHOrWETHNew =
-          currencyIdNew === 'ETH' || (chainId !== undefined && currencyIdNew === WETH9[chainId]?.address)
+          currencyIdNew === 'ETH' || (chainId !== undefined && currencyIdNew === getWeth9(chainId)?.address)
         const isETHOrWETHOther =
           currencyIdOther !== undefined &&
-          (currencyIdOther === 'ETH' || (chainId !== undefined && currencyIdOther === WETH9[chainId]?.address))
+          (currencyIdOther === 'ETH' || (chainId !== undefined && currencyIdOther === getWeth9(chainId)?.address))
 
         if (isETHOrWETHNew && isETHOrWETHOther) {
           return [currencyIdNew, undefined]
@@ -370,7 +370,7 @@ export default function AddLiquidity({
   // we need an existence check on parsed amounts for single-asset deposits
   const showApprovalA = approvalA !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_A]
   const showApprovalB = approvalB !== ApprovalState.APPROVED && !!parsedAmounts[Field.CURRENCY_B]
-
+console.log(`!feeAmount ${!feeAmount} || invalidPool ${invalidPool} || (noLiquidity && !startPriceTypedValue) ${(noLiquidity && !startPriceTypedValue)}`)
   return (
     <ScrollablePage>
       <TransactionConfirmationModal

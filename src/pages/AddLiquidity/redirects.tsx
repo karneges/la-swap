@@ -3,6 +3,7 @@ import React from 'react'
 import { Redirect, RouteComponentProps } from 'react-router-dom'
 import AddLiquidity from './index'
 import { WETH9 } from '@uniswap/sdk-core'
+import { getWeth9 } from '../../constants'
 
 export function RedirectDuplicateTokenIds(
   props: RouteComponentProps<{ currencyIdA: string; currencyIdB: string; feeAmount?: string }>
@@ -16,8 +17,8 @@ export function RedirectDuplicateTokenIds(
   const { chainId } = useActiveWeb3React()
 
   // prevent weth + eth
-  const isETHOrWETHA = currencyIdA === 'ETH' || (chainId !== undefined && currencyIdA === WETH9[chainId]?.address)
-  const isETHOrWETHB = currencyIdB === 'ETH' || (chainId !== undefined && currencyIdB === WETH9[chainId]?.address)
+  const isETHOrWETHA = currencyIdA === 'ETH' || (chainId !== undefined && currencyIdA === getWeth9(chainId)?.address)
+  const isETHOrWETHB = currencyIdB === 'ETH' || (chainId !== undefined && currencyIdB === getWeth9(chainId)?.address)
 
   if (
     currencyIdA &&

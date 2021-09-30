@@ -31,7 +31,7 @@ import {
   V1_MIGRATOR_ADDRESS,
   UNI,
   MULTICALL2_ADDRESSES,
-  V2_ROUTER_ADDRESS,
+  V2_ROUTER_ADDRESS, getWeth9
 } from 'constants/index'
 import { abi as NFTPositionManagerABI } from '@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
 import {
@@ -79,7 +79,7 @@ export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: b
 
 export function useWETHContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  const address = chainId && chainId in WETH9 ? WETH9[chainId].address : undefined
+  const address = chainId && chainId in WETH9 ? getWeth9(chainId).address : undefined
   return useContract(address, WETH_ABI, withSignerIfPossible)
 }
 
@@ -100,7 +100,7 @@ export function useENSRegistrarContract(withSignerIfPossible?: boolean): Contrac
       case ChainId.MAINNET:
       case ChainId.GÖRLI:
       //  TODO here
-      case 41:
+      // case 41:
       case ChainId.ROPSTEN:
       case ChainId.RINKEBY:
         address = '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'

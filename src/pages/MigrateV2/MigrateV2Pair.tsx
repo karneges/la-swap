@@ -47,6 +47,7 @@ import Badge, { BadgeVariant } from 'components/Badge'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'state'
 import SettingsTab from 'components/Settings'
+import { getWeth9 } from '../../constants'
 
 const ZERO = JSBI.BigInt(0)
 
@@ -566,8 +567,8 @@ function V2PairMigration({
                 <LiquidityInfo token0Amount={position.amount0} token1Amount={position.amount1} />
                 {chainId && refund0 && refund1 ? (
                   <TYPE.black fontSize={12}>
-                    At least {formatTokenAmount(refund0, 4)} {token0.equals(WETH9[chainId]) ? 'ETH' : token0.symbol} and{' '}
-                    {formatTokenAmount(refund1, 4)} {token1.equals(WETH9[chainId]) ? 'ETH' : token1.symbol} will be
+                    At least {formatTokenAmount(refund0, 4)} {token0.equals(getWeth9(chainId)) ? 'ETH' : token0.symbol} and{' '}
+                    {formatTokenAmount(refund1, 4)} {token1.equals(getWeth9(chainId)) ? 'ETH' : token1.symbol} will be
                     refunded to your wallet due to selected price range.
                   </TYPE.black>
                 ) : null}

@@ -17,7 +17,7 @@ import { AddRemoveTabs } from '../../components/NavigationTabs'
 import { MinimalPositionCard } from '../../components/PositionCard'
 import Row, { RowBetween, RowFlat } from '../../components/Row'
 
-import { V2_ROUTER_ADDRESS, ZERO_PERCENT } from '../../constants'
+import { V2_ROUTER_ADDRESS, WETH_ONLY, ZERO_PERCENT } from '../../constants'
 import { useV2RouterContract } from '../../hooks/useContract'
 import { PairState } from '../../hooks/useV2Pairs'
 import { useActiveWeb3React } from '../../hooks'
@@ -58,8 +58,8 @@ export default function AddLiquidity({
 
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(currencyA, WETH9[chainId])) ||
-        (currencyB && currencyEquals(currencyB, WETH9[chainId])))
+      ((currencyA && currencyEquals(currencyA, WETH_ONLY[chainId][0])) ||
+        (currencyB && currencyEquals(currencyB, WETH_ONLY[chainId][0])))
   )
 
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected

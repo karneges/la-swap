@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "noEmitOnError": true,
     "esModuleInterop": true,
     "module": "esnext",
     "strict": false,

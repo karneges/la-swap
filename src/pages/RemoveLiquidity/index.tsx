@@ -19,7 +19,7 @@ import Row, { RowBetween, RowFixed } from '../../components/Row'
 
 import Slider from '../../components/Slider'
 import CurrencyLogo from '../../components/CurrencyLogo'
-import { V2_ROUTER_ADDRESS } from '../../constants'
+import { getWeth9, V2_ROUTER_ADDRESS } from '../../constants'
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from '../../hooks/Tokens'
 import { usePairContract, useV2RouterContract } from '../../hooks/useContract'
@@ -386,8 +386,8 @@ export default function RemoveLiquidity({
   const oneCurrencyIsETH = currencyA?.isEther || currencyB?.isEther
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(WETH9[chainId], currencyA)) ||
-        (currencyB && currencyEquals(WETH9[chainId], currencyB)))
+      ((currencyA && currencyEquals(getWeth9(chainId), currencyA)) ||
+        (currencyB && currencyEquals(getWeth9(chainId), currencyB)))
   )
 
   const handleSelectCurrencyA = useCallback(
@@ -526,8 +526,8 @@ export default function RemoveLiquidity({
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
                         {oneCurrencyIsETH ? (
                           <StyledInternalLink
-                            to={`/remove/v2/${currencyA?.isEther ? WETH9[chainId].address : currencyIdA}/${
-                              currencyB?.isEther ? WETH9[chainId].address : currencyIdB
+                            to={`/remove/v2/${currencyA?.isEther ? getWeth9(chainId).address : currencyIdA}/${
+                              currencyB?.isEther ? getWeth9(chainId).address : currencyIdB
                             }`}
                           >
                             Receive WETH
@@ -535,8 +535,8 @@ export default function RemoveLiquidity({
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
                             to={`/remove/v2/${
-                              currencyA && currencyEquals(currencyA, WETH9[chainId]) ? 'ETH' : currencyIdA
-                            }/${currencyB && currencyEquals(currencyB, WETH9[chainId]) ? 'ETH' : currencyIdB}`}
+                              currencyA && currencyEquals(currencyA, getWeth9(chainId)) ? 'ETH' : currencyIdA
+                            }/${currencyB && currencyEquals(currencyB, getWeth9(chainId)) ? 'ETH' : currencyIdB}`}
                           >
                             Receive ETH
                           </StyledInternalLink>

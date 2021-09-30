@@ -5,7 +5,6 @@ import { TokenList } from '@uniswap/token-lists/dist/types'
 import { DEFAULT_LIST_OF_LISTS } from '../../constants/lists'
 import { updateVersion } from '../global/actions'
 import { acceptListUpdate, addList, fetchTokenList, removeList, enableList, disableList } from './actions'
-import { Token } from '@uniswap/sdk-core'
 
 export interface ListsState {
   readonly byUrl: {
@@ -37,46 +36,10 @@ type Mutable<T> = { -readonly [P in keyof T]: T[P] extends ReadonlyArray<infer U
 const initialState: ListsState = {
   lastInitializedDefaultListOfLists: DEFAULT_LIST_OF_LISTS,
   byUrl: {
-    // @ts-ignore
-
-    ...DEFAULT_LIST_OF_LISTS.concat(UNSUPPORTED_LIST_URLS).reduce<Mutable<ListsState['byUrl']>>(
-      (memo, listUrl) => {
-        memo[listUrl] = NEW_LIST_STATE
-        return memo
-      },
-      {
-        'https://raw.LA.com/The-Blocsdcsdckchain-Association/sec-notice-list/master/ba-sec-list.json': {
-          current: {
-            tokens: [
-              {
-                chainId: 41,
-                decimals: 18,
-                address: '0x327B1fb4173308Ad6Eafc4a73Af2a6e61C15A87D',
-                symbol: 'LRC20_1',
-                name: 'LRC20_1',
-              },
-              {
-                chainId: 41,
-                decimals: 18,
-                address: '0x5F7832A4e1Cc385af56365588ab621e2Dc586601',
-                symbol: 'LRC20_2',
-                name: 'LRC20_2',
-              },
-            ],
-            name: 'LA',
-            version: {
-              major: 1,
-              minor: 1,
-              patch: 1,
-            },
-            timestamp: new Date().toISOString(),
-          },
-          error: null,
-          pendingUpdate: null,
-          loadingRequestId: null,
-        },
-      }
-    ),
+    ...DEFAULT_LIST_OF_LISTS.concat(UNSUPPORTED_LIST_URLS).reduce<Mutable<ListsState['byUrl']>>((memo, listUrl) => {
+      memo[listUrl] = NEW_LIST_STATE
+      return memo
+    }, {}),
   },
   activeListUrls: DEFAULT_ACTIVE_LIST_URLS,
 }
@@ -93,10 +56,6 @@ export default createReducer(initialState, (builder) =>
       }
     })
     .addCase(fetchTokenList.fulfilled, (state, { payload: { requestId, tokenList, url } }) => {
-      if (url === 'https://raw.LA.com/The-Blocsdcsdckchain-Association/sec-notice-list/master/ba-sec-list.json') {
-        return
-      }
-
       const current = state.byUrl[url]?.current
       const loadingRequestId = state.byUrl[url]?.loadingRequestId
       // no-op if update does nothing
@@ -129,9 +88,6 @@ export default createReducer(initialState, (builder) =>
       }
     })
     .addCase(fetchTokenList.rejected, (state, { payload: { url, requestId, errorMessage } }) => {
-      if (url === 'https://raw.LA.com/The-Blocsdcsdckchain-Association/sec-notice-list/master/ba-sec-list.json') {
-        return
-      }
       if (state.byUrl[url]?.loadingRequestId !== requestId) {
         // no-op since it's not the latest request
         return

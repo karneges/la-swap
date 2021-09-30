@@ -9,7 +9,7 @@ function constructSameAddressMap(address: string): { [chainId in ChainId]: strin
     [ChainId.RINKEBY]: address,
     [ChainId.GÖRLI]: address,
     //@ts-ignore
-    41: address,
+    41:address
   }
 }
 

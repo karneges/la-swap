@@ -34,6 +34,7 @@ import { calculateGasMargin } from 'utils'
 import useTheme from 'hooks/useTheme'
 import { AddRemoveTabs } from 'components/NavigationTabs'
 import RangeBadge from 'components/Badge/RangeBadge'
+import { getWeth9 } from '../../constants'
 
 export const UINT128MAX = BigNumber.from(2).pow(128).sub(1)
 
@@ -122,10 +123,10 @@ function Remove({ tokenId }: { tokenId: BigNumber }) {
       slippageTolerance: allowedSlippage,
       deadline: deadline.toString(),
       collectOptions: {
-        expectedCurrencyOwed0: currencyEquals(liquidityValue0.currency, WETH9[chainId])
+        expectedCurrencyOwed0: currencyEquals(liquidityValue0.currency, getWeth9(chainId))
           ? CurrencyAmount.ether(feeValue0.quotient)
           : feeValue0,
-        expectedCurrencyOwed1: currencyEquals(liquidityValue1.currency, WETH9[chainId])
+        expectedCurrencyOwed1: currencyEquals(liquidityValue1.currency, getWeth9(chainId))
           ? CurrencyAmount.ether(feeValue1.quotient)
           : feeValue1,
         recipient: account,

@@ -1,6 +1,6 @@
 import { ChainId, Percent, Token, WETH9 } from '@uniswap/sdk-core'
 import { AbstractConnector } from '@web3-react/abstract-connector'
-import JSBI from 'jsbi'
+import JSBI from 'jsbi' 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
 import INJECTED_ICON_URL from '../assets/images/arrow-right.svg'
@@ -113,6 +113,9 @@ export const WETH_ONLY: ChainTokenList = {
   41: [new Token(41, '0x9861f08a6bA30CBdA167E9F62ba29C002514C561', 18, 'WETH', 'WETH')],
 }
 
+export const getWeth9 = (chainId:number) => {
+  return WETH_ONLY[chainId][0]
+}
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,

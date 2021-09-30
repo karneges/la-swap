@@ -9,9 +9,10 @@ import {
   wrappedCurrency as wrappedCurrencyInternal,
   wrappedCurrencyAmount as wrappedCurrencyAmountInternal,
 } from '@uniswap/sdk-core'
+import { getWeth9 } from '../constants'
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
-  return chainId && currency ? wrappedCurrencyInternal(currency, chainId) : undefined
+  return chainId && currency ? (wrappedCurrencyInternal(currency, chainId) || getWeth9(chainId)) : undefined
 }
 
 export function wrappedCurrencyAmount(
